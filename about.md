@@ -4,12 +4,12 @@ title: About
 permalink: /about/
 ---
 
-OASP4Net & OASP4X
+Some information about you!
 
 ### More Information
 
-Please visit https://oasp.github.io/oasp
+A place to include any other types of information that you'd like to include about yourself.
 
-### Contact
+### Contact me
 
-Please visit https://oasp.github.io/oasp
+[email@domain.com](mailto:email@domain.com)
