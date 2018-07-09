@@ -461,6 +461,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </table>
 </div>
 <h1 id="true-span-class-navy-the-packages-span" class="sect0"><a class="anchor" href="#true-span-class-navy-the-packages-span"></a><span class="navy">The packages</span></h1>
+<div class="paragraph">
+<p>You can get the OASP packages on <a href="https://www.nuget.org/packages?q=oasp">nuget.org</a>.</p>
+</div>
 <div class="sect2">
 <h3 id="true-span-class-navy-oasp4net-domain-context-span"><a class="anchor" href="#true-span-class-navy-oasp4net-domain-context-span"></a><span class="navy">OASP4Net.Domain.Context</span></h3>
 <div class="sect3">
@@ -471,13 +474,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-configuration-span"><a class="anchor" href="#true-span-class-navy-configuration-span"></a><span class="navy">Configuration</span></h4>
-<div class="paragraph">
-<p>Install package on your solution:</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
-<p>PM&gt; Install-Package OASP4Net.Domain.Context</p>
+<p>Install package on your solution:</p>
+<div class="literalblock">
+<div class="content">
+<pre>PM&gt; Install-Package OASP4Net.Domain.Context</pre>
+</div>
+</div>
 </li>
 <li>
 <p>Add to <em>appsettings.{environment}.json</em> file your database connections:</p>
@@ -498,9 +503,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 }</code></pre>
 </div>
 </div>
-</div>
-<div class="sect3">
-<h4 id="true-span-class-navy-set-up-span"><a class="anchor" href="#true-span-class-navy-set-up-span"></a><span class="navy">Set up</span></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -546,21 +548,16 @@ new Dictionary&lt;string, string&gt; {
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-configuration-span-2"><a class="anchor" href="#true-span-class-navy-configuration-span-2"></a><span class="navy">Configuration</span></h4>
-<div class="paragraph">
-<p>Install package on your solution:</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
-<p>PM&gt; Install-Package OASP4Net.Domain.UnitOfWork</p>
+<p>Install package on your solution:</p>
+<div class="literalblock">
+<div class="content">
+<pre>PM&gt; Install-Package OASP4Net.Domain.UnitOfWork</pre>
+</div>
+</div>
 </li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="true-span-class-navy-set-up-span-2"><a class="anchor" href="#true-span-class-navy-set-up-span-2"></a><span class="navy">Set up</span></h4>
-<div class="ulist">
-<ul>
 <li>
 <p>Add this line of code:</p>
 </li>
@@ -614,19 +611,18 @@ new Dictionary&lt;string, string&gt; {
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-configuration-span-3"><a class="anchor" href="#true-span-class-navy-configuration-span-3"></a><span class="navy">Configuration</span></h4>
-<div class="paragraph">
-<p>Install package on your solution:</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
-<p>PM&gt; Install-Package OASP4Net.Domain.AOP</p>
+<p>Install package on your solution:</p>
+<div class="literalblock">
+<div class="content">
+<pre>PM&gt; Install-Package OASP4Net.Domain.AOP</pre>
+</div>
+</div>
 </li>
 </ul>
 </div>
-</div>
-<div class="sect3">
-<h4 id="true-span-class-navy-set-up-span-3"><a class="anchor" href="#true-span-class-navy-set-up-span-3"></a><span class="navy">Set up</span></h4>
 <div class="paragraph">
 <p>Add this line of code on ConfigureServices method on Startup.cs</p>
 </div>
@@ -672,15 +668,99 @@ new Dictionary&lt;string, string&gt; {
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-configuration-span-4"><a class="anchor" href="#true-span-class-navy-configuration-span-4"></a><span class="navy">Configuration</span></h4>
-
+<div class="ulist">
+<ul>
+<li>
+<p>Add the database connection string for user management on <em>appsettings.{environment}.json</em>:</p>
+</li>
+</ul>
 </div>
-<div class="sect3">
-<h4 id="true-span-class-navy-set-up-span-4"><a class="anchor" href="#true-span-class-navy-set-up-span-4"></a><span class="navy">Set up</span></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json" data-lang="json">"ConnectionStrings":
+{
+"AuthConnection":
+"Server=(localdb)\\mssqllocaldb;Database=aspnet-DualAuthCore-5E206A0B-D4DA-4E71-92D3-87FD6B120C5E;Trusted_Connection=True;MultipleActiveResultSets=true"
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add the following line of code</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c#" data-lang="c#">services.AddApplicationUserDependencyInjection();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Startup.cs/ConfigureServices(IServiceCollection services)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or on:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>OASP4Net.Application.Configuration.Startup/DependencyInjectionConfiguration/ConfigureDependencyInjectionService method.</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add the data seeder on Configure method on start.cs class:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c#" data-lang="c#">public void Configure(IApplicationBuilder app, IHostingEnvironment env, DataSeeder seeder)
+{
+    ...
 
+    app.UseAuthentication();
+    seeder.SeedAsync().Wait();
+
+    ...
+}</code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-notes-span-3"><a class="anchor" href="#true-span-class-navy-notes-span-3"></a><span class="navy">Notes</span></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>You can use the following methods to set up the database configuration:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>public static void AddApplicationUserDbContextInMemoryService(this IServiceCollection services)
 
+public static void AddApplicationUserDbContextSQliteService(this IServiceCollection services, string connectionString)
+
+public static void AddApplicationUserDbContextSQlServerService(this IServiceCollection services, string connectionString)</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The method <em>AddApplicationUserDbContextInMemoryService</em> uses the <em>AuthContext</em> connection string name to set up the database.</p>
+</li>
+<li>
+<p>This component is used with the components <em>OASP4Net.Infrastructure.JWT</em> and <em>OASP4Net.Infrastructure.JWT.MVC</em>.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -688,15 +768,11 @@ new Dictionary&lt;string, string&gt; {
 <div class="sect3">
 <h4 id="true-span-class-navy-description-span-5"><a class="anchor" href="#true-span-class-navy-description-span-5"></a><span class="navy">Description</span></h4>
 <div class="paragraph">
-<p>Basic client classes to  invoke GET/POST /PUT methods.</p>
+<p>Basic client classes to  invoke GET/POST/PUT methods.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-configuration-span-5"><a class="anchor" href="#true-span-class-navy-configuration-span-5"></a><span class="navy">Configuration</span></h4>
-
-</div>
-<div class="sect3">
-<h4 id="true-span-class-navy-set-up-span-5"><a class="anchor" href="#true-span-class-navy-set-up-span-5"></a><span class="navy">Set up</span></h4>
 
 </div>
 <div class="sect3">
@@ -714,10 +790,6 @@ new Dictionary&lt;string, string&gt; {
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-configuration-span-6"><a class="anchor" href="#true-span-class-navy-configuration-span-6"></a><span class="navy">Configuration</span></h4>
-
-</div>
-<div class="sect3">
-<h4 id="true-span-class-navy-set-up-span-6"><a class="anchor" href="#true-span-class-navy-set-up-span-6"></a><span class="navy">Set up</span></h4>
 
 </div>
 <div class="sect3">
@@ -742,10 +814,6 @@ new Dictionary&lt;string, string&gt; {
 
 </div>
 <div class="sect3">
-<h4 id="true-span-class-navy-set-up-span-7"><a class="anchor" href="#true-span-class-navy-set-up-span-7"></a><span class="navy">Set up</span></h4>
-
-</div>
-<div class="sect3">
 <h4 id="true-span-class-navy-notes-span-6"><a class="anchor" href="#true-span-class-navy-notes-span-6"></a><span class="navy">Notes</span></h4>
 
 </div>
@@ -763,10 +831,6 @@ new Dictionary&lt;string, string&gt; {
 
 </div>
 <div class="sect3">
-<h4 id="true-span-class-navy-set-up-span-8"><a class="anchor" href="#true-span-class-navy-set-up-span-8"></a><span class="navy">Set up</span></h4>
-
-</div>
-<div class="sect3">
 <h4 id="true-span-class-navy-notes-span-7"><a class="anchor" href="#true-span-class-navy-notes-span-7"></a><span class="navy">Notes</span></h4>
 
 </div>
@@ -781,10 +845,6 @@ new Dictionary&lt;string, string&gt; {
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-configuration-span-9"><a class="anchor" href="#true-span-class-navy-configuration-span-9"></a><span class="navy">Configuration</span></h4>
-
-</div>
-<div class="sect3">
-<h4 id="true-span-class-navy-set-up-span-9"><a class="anchor" href="#true-span-class-navy-set-up-span-9"></a><span class="navy">Set up</span></h4>
 
 </div>
 <div class="sect3">
@@ -843,10 +903,6 @@ new Dictionary&lt;string, string&gt; {
 
 </div>
 <div class="sect3">
-<h4 id="true-span-class-navy-set-up-span-10"><a class="anchor" href="#true-span-class-navy-set-up-span-10"></a><span class="navy">Set up</span></h4>
-
-</div>
-<div class="sect3">
 <h4 id="true-span-class-navy-notes-span-9"><a class="anchor" href="#true-span-class-navy-notes-span-9"></a><span class="navy">Notes</span></h4>
 
 </div>
@@ -861,10 +917,6 @@ new Dictionary&lt;string, string&gt; {
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-configuration-span-11"><a class="anchor" href="#true-span-class-navy-configuration-span-11"></a><span class="navy">Configuration</span></h4>
-
-</div>
-<div class="sect3">
-<h4 id="true-span-class-navy-set-up-span-11"><a class="anchor" href="#true-span-class-navy-set-up-span-11"></a><span class="navy">Set up</span></h4>
 
 </div>
 <div class="sect3">
@@ -885,10 +937,6 @@ new Dictionary&lt;string, string&gt; {
 
 </div>
 <div class="sect3">
-<h4 id="true-span-class-navy-set-up-span-12"><a class="anchor" href="#true-span-class-navy-set-up-span-12"></a><span class="navy">Set up</span></h4>
-
-</div>
-<div class="sect3">
 <h4 id="true-span-class-navy-notes-span-11"><a class="anchor" href="#true-span-class-navy-notes-span-11"></a><span class="navy">Notes</span></h4>
 
 </div>
@@ -903,10 +951,6 @@ new Dictionary&lt;string, string&gt; {
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-configuration-span-13"><a class="anchor" href="#true-span-class-navy-configuration-span-13"></a><span class="navy">Configuration</span></h4>
-
-</div>
-<div class="sect3">
-<h4 id="true-span-class-navy-set-up-span-13"><a class="anchor" href="#true-span-class-navy-set-up-span-13"></a><span class="navy">Set up</span></h4>
 
 </div>
 <div class="sect3">
@@ -927,10 +971,9 @@ new Dictionary&lt;string, string&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-07-09 10:42:34 RDT
+Last updated 2018-07-09 12:31:27 RDT
 </div>
 </div>
-<link rel="stylesheet" href="css/github.min.css">
 <script src="js/highlight.min.js"></script>
 <script>hljs.initHighlighting()</script>
 </body>
