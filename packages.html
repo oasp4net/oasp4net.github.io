@@ -614,15 +614,52 @@ new Dictionary&lt;string, string&gt; {
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-configuration-span-3"><a class="anchor" href="#true-span-class-navy-configuration-span-3"></a><span class="navy">Configuration</span></h4>
-
+<div class="paragraph">
+<p>Install package on your solution:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>PM&gt; Install-Package OASP4Net.Domain.AOP</p>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-set-up-span-3"><a class="anchor" href="#true-span-class-navy-set-up-span-3"></a><span class="navy">Set up</span></h4>
-
+<div class="paragraph">
+<p>Add this line of code on ConfigureServices method on Startup.cs</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c#" data-lang="c#">services.AddAopAttributeService();</code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-notes-span-2"><a class="anchor" href="#true-span-class-navy-notes-span-2"></a><span class="navy">Notes</span></h4>
-
+<div class="paragraph">
+<p>Now automatically your exposed API methods exposed on controller classes will be tracked on the methods:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>OnActionExecuting</p>
+</li>
+<li>
+<p>OnActionExecuted</p>
+</li>
+<li>
+<p>OnResultExecuting</p>
+</li>
+<li>
+<p>OnResultExecuted</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If an exception occuers, a message will be displayed on log with the stack trace.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -890,7 +927,7 @@ new Dictionary&lt;string, string&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-07-09 10:17:12 RDT
+Last updated 2018-07-09 10:42:34 RDT
 </div>
 </div>
 <link rel="stylesheet" href="css/github.min.css">
