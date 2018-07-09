@@ -806,12 +806,8 @@ public Task&lt;string&gt; CallPutMethod&lt;T&gt;(string url, T dataToSend);</cod
 <pre class="highlightjs highlight"><code class="language-c#" data-lang="c#">private async Task RestManagementServiceSample(EmailDto dataToSend)
 {
     var url = Configuration["EmailServiceUrl"];
-    var dataToSend = new YourTypedObjectSample();
-
-
     var restManagementService = new RestManagementService();
     await restManagementService.CallPostMethod(url, dataToSend);
-
 }</code></pre>
 </div>
 </div>
@@ -1008,7 +1004,7 @@ public Task&lt;string&gt; CallPutMethod&lt;T&gt;(string url, T dataToSend);</cod
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-07-09 13:13:55 RDT
+Last updated 2018-07-09 13:16:24 RDT
 </div>
 </div>
 <link rel="stylesheet" href="css/github.min.css">
