@@ -671,6 +671,14 @@ new Dictionary&lt;string, string&gt; {
 <div class="ulist">
 <ul>
 <li>
+<p>Install package on your solution:</p>
+<div class="literalblock">
+<div class="content">
+<pre>PM&gt; OASP4Net.Infrastructure.ApplicationUser</pre>
+</div>
+</div>
+</li>
+<li>
 <p>Add the database connection string for user management on <em>appsettings.{environment}.json</em>:</p>
 </li>
 </ul>
@@ -776,6 +784,14 @@ public static void AddApplicationUserDbContextSQlServerService(this IServiceColl
 <div class="ulist">
 <ul>
 <li>
+<p>Install package on your solution:</p>
+<div class="literalblock">
+<div class="content">
+<pre>PM&gt; OASP4Net.Infrastructure.Communication</pre>
+</div>
+</div>
+</li>
+<li>
 <p>Create an instance of <em>RestManagementService</em> class.</p>
 </li>
 <li>
@@ -820,14 +836,114 @@ public Task&lt;string&gt; CallPutMethod&lt;T&gt;(string url, T dataToSend);</cod
 <div class="paragraph">
 <p>Enables CORS configuration for OASP4Net application. Multiple domains can be configured from configuration. Mandatory to web clients (p.e. Angular) to prevent making AJAX requests to another domain.</p>
 </div>
+<div class="paragraph">
+<p>Cross-Origin Resource Sharing (CORS) is a mechanism that uses additional HTTP headers to tell a browser to let a web application running at one origin (domain) have permission to access selected resources from a server at a different origin. A web application makes a cross-origin HTTP request when it requests a resource that has a different origin (domain, protocol, and port) than its own origin.</p>
+</div>
+<div class="paragraph">
+<p>Plase reffer to <a href="https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-2.1">this link</a> to get more information about CORS and .Net core.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-configuration-span-6"><a class="anchor" href="#true-span-class-navy-configuration-span-6"></a><span class="navy">Configuration</span></h4>
-
+<div class="ulist">
+<ul>
+<li>
+<p>Install package on your solution:</p>
+<div class="literalblock">
+<div class="content">
+<pre>PM&gt; OASP4Net.Infrastructure.Cors</pre>
+</div>
+</div>
+</li>
+<li>
+<p>You can configure your Cors configuration on <em>appsettings.{environment}.json</em>:</p>
+<div class="literalblock">
+<div class="content">
+<pre>CorsPolicy: indicates the name of the policy. You can use this name to add security headers on your API exposed methods.</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Origins: The alowed domains</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Headers: The allowed headers such accept,content-type,origin,x-custom-header</pre>
+</div>
+</div>
+</li>
+<li>
+<p>If you specify the cors configuration as empty array, a default Corspolicy will be enabled enabled with all origins enabled:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json" data-lang="json">  "Cors": []</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On the other hand, you can specify different Cors policies in your solution as follows:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json" data-lang="json">"Cors": []
+[
+  {
+    "CorsPolicy": "CorsPolicy1",
+    "Origins": "http:example.com,http:www.contoso.com",
+    "Headers": "accept,content-type,origin,x-custom-header",
+    "Methods": "GET,POST,HEAD",
+    "AllowCredentials": true
+  },
+  {
+    "CorsPolicy": "CorsPolicy2",
+    "Origins": "http:example.com,http:www.contoso.com",
+    "Headers": "accept,content-type,origin,x-custom-header",
+    "Methods": "GET,POST,HEAD",
+    "AllowCredentials": true
+  }
+]</code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-notes-span-5"><a class="anchor" href="#true-span-class-navy-notes-span-5"></a><span class="navy">Notes</span></h4>
-
+<div class="ulist">
+<ul>
+<li>
+<p>To use CORS in your API methods, use the next notation:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-C#" data-lang="C#">[EnableCors("YourCorsPolicy")]
+public IActionResult Index() {
+    return View();
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>if you want to disble the CORS check use the following annotation:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-C#" data-lang="C#">[DisableCors]
+public IActionResult Index() {
+    return View();
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -844,11 +960,81 @@ public Task&lt;string&gt; CallPutMethod&lt;T&gt;(string url, T dataToSend);</cod
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-configuration-span-7"><a class="anchor" href="#true-span-class-navy-configuration-span-7"></a><span class="navy">Configuration</span></h4>
-
+<div class="ulist">
+<ul>
+<li>
+<p>Install package on your solution:</p>
+<div class="literalblock">
+<div class="content">
+<pre>PM&gt; OASP4Net.Infrastructure.Extensions</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-notes-span-6"><a class="anchor" href="#true-span-class-navy-notes-span-6"></a><span class="navy">Notes</span></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Predicate expression builder:
+Use this expression builder to generate lambda expressions dynamically.</p>
+<div class="literalblock">
+<div class="content">
+<pre>var predicate =  PredicateBuilder.True&lt;T&gt;();</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Where T is a class. At this moment, you can build your expression and apply it to obtain your results in a efficient way and not retrieving data each time you apply an expression.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Exaple from My Thai Star .Net Core implementation:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-C#" data-lang="C#">public async Task&lt;PaginationResult&lt;Dish&gt;&gt; GetpagedDishListFromFilter(int currentpage, int pageSize, bool isFav, decimal maxPrice, int minLikes, string searchBy, IList&lt;long&gt; categoryIdList, long userId)
+{
+    var includeList = new List&lt;string&gt;{"DishCategory","DishCategory.IdCategoryNavigation", "DishIngredient","DishIngredient.IdIngredientNavigation","IdImageNavigation"};
 
+    //Here we create our predicate builder
+    var dishPredicate = PredicateBuilder.True&lt;Dish&gt;();
+
+
+    //Now we start applying the different criterias:
+    if (!string.IsNullOrEmpty(searchBy))
+    {
+        var criteria = searchBy.ToLower();
+        dishPredicate = dishPredicate.And(d =&gt; d.Name.ToLower().Contains(criteria) || d.Description.ToLower().Contains(criteria));
+    }
+
+    if (maxPrice &gt; 0) dishPredicate = dishPredicate.And(d=&gt;d.Price&lt;=maxPrice);
+
+    if (categoryIdList.Any())
+    {
+        dishPredicate = dishPredicate.And(r =&gt; r.DishCategory.Any(a =&gt; categoryIdList.Contains(a.IdCategory)));
+    }
+
+    if (isFav &amp;&amp; userId &gt;= 0)
+    {
+        var favourites = await UoW.Repository&lt;UserFavourite&gt;().GetAllAsync(w=&gt;w.IdUser == userId);
+        var dishes = favourites.Select(s =&gt; s.IdDish);
+        dishPredicate = dishPredicate.And(r=&gt; dishes.Contains(r.Id));
+    }
+
+    // Now we can use the predicate to retrieve data from database with just one call
+    return await UoW.Repository&lt;Dish&gt;().GetAllIncludePagedAsync(currentpage, pageSize, includeList, dishPredicate);
+
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1001,10 +1187,13 @@ public Task&lt;string&gt; CallPutMethod&lt;T&gt;(string url, T dataToSend);</cod
 <div class="paragraph">
 <p><a href="https://www.microsoft.com/net/core">.Net Core SDK</a></p>
 </div>
+<div class="paragraph">
+<p><a href="https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-2.1">CORS in .Net Core</a></p>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-07-09 13:16:24 RDT
+Last updated 2018-07-10 10:24:44 RDT
 </div>
 </div>
 <link rel="stylesheet" href="css/github.min.css">
