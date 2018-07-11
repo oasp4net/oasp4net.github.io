@@ -439,7 +439,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#true-span-class-navy-oasp4net-infrastructure-jwt-mvc-span"><span class="navy">OASP4Net.Infrastructure.JWT.MVC</span></a></li>
 <li><a href="#true-span-class-navy-oasp4net-infrastructure-middleware-span"><span class="navy">OASP4Net.Infrastructure.Middleware</span></a></li>
 <li><a href="#true-span-class-navy-oasp4net-infrastructure-mvc-span"><span class="navy">OASP4Net.Infrastructure.MVC</span></a></li>
-<li><a href="#true-span-class-navy-oasp4net-infrastructure-smtp-span"><span class="navy">OASP4Net.Infrastructure.SMTP</span></a></li>
 <li><a href="#true-span-class-navy-oasp4net-infrastructure-swagger-span"><span class="navy">OASP4Net.Infrastructure.Swagger</span></a></li>
 <li><a href="#true-span-class-navy-oasp4net-infrastructure-test-span"><span class="navy">OASP4Net.Infrastructure.Test</span></a></li>
 </ul>
@@ -975,11 +974,13 @@ public IActionResult Index() {
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-notes-span-6"><a class="anchor" href="#true-span-class-navy-notes-span-6"></a><span class="navy">Notes</span></h4>
+<div class="paragraph">
+<p><em>Predicate expression builder</em></p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Predicate expression builder:
-Use this expression builder to generate lambda expressions dynamically.</p>
+<p>Use this expression builder to generate lambda expressions dynamically.</p>
 <div class="literalblock">
 <div class="content">
 <pre>var predicate =  PredicateBuilder.True&lt;T&gt;();</pre>
@@ -1035,55 +1036,315 @@ Use this expression builder to generate lambda expressions dynamically.</p>
 }</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><em>HttpContext</em></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>TryAddHeader method is used on <em>OASP4Net.Infrastructure.Middleware</em> component to add automatically response header options such authorization.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>Cryptography</em></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Adds to <em>string</em> class the following conversion methods:</p>
+<div class="literalblock">
+<div class="content">
+<pre>ToSHA256
+ToSHA512
+ToMD5</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>Datetime</em></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Adds the <em>ConvertDateTimeToMilliseconds</em> method to <em>DateTime</em> class. It is very helpfull to get aligned with frontend frameworks.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>Http Client</em></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Contains synchronous and asyncrhonous methods to perform Http method calls such:</p>
+<div class="literalblock">
+<div class="content">
+<pre>Post
+Put
+Patch</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="true-span-class-navy-oasp4net-infrastructure-jwt-span"><a class="anchor" href="#true-span-class-navy-oasp4net-infrastructure-jwt-span"></a><span class="navy">OASP4Net.Infrastructure.JWT</span></h3>
 <div class="sect3">
 <h4 id="true-span-class-navy-description-span-8"><a class="anchor" href="#true-span-class-navy-description-span-8"></a><span class="navy">Description</span></h4>
+<div class="quoteblock">
+<blockquote>
 <div class="paragraph">
-<p>Json web token (JWT) support classes for token generation from p12/pfx certificate. Please read the documentation to use it properly.</p>
+<p>JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. JWTs can be signed using a secret (with the HMAC algorithm) or a public/private key pair using RSA or ECDSA.</p>
+</div>
+</blockquote>
+<div class="attribution">
+&#8212; What is JSON Web Token?<br>
+<cite>https://jwt.io/introduction/</cite>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>OASP component to manage JWT standard to provide security to .Net API applications.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-configuration-span-8"><a class="anchor" href="#true-span-class-navy-configuration-span-8"></a><span class="navy">Configuration</span></h4>
-
+<div class="ulist">
+<ul>
+<li>
+<p>Install package on your solution:</p>
+<div class="literalblock">
+<div class="content">
+<pre>PM&gt; OASP4Net.Infrastructure.JWT</pre>
+</div>
+</div>
+</li>
+<li>
+<p>You can configure your JWT configuration on <em>appsettings.{environment}.json</em>:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json" data-lang="json">"JWT": {
+    "Audience": "MyThaiStar",
+    "Issuer": "MyThaiStar",
+    "TokenExpirationTime": 60,
+    "ValidateIssuerSigningKey": true,
+    "ValidateLifetime": true,
+    "ClockSkew": 5,
+    "Certificate": "oasp4net.pfx",
+    "CertificatePassword": "oasp4net"
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>ClockSkew</em> indicates the token expiration time in minutes</p>
+</li>
+<li>
+<p><em>Certificate</em> you can especify the name of your certificate (if it is on the same path) or the full path of the certificate. If the certificate does not exists an exception will be raised.</p>
+</li>
+<li>
+<p>Add this line of code:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c#" data-lang="c#">services.AddBusinessCommonJwtPolicy();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Startup.cs/ConfigureServices(IServiceCollection services)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or on:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>OASP4Net.Application.Configuration.Startup/JwtApplicationConfiguration/ConfigureJwtPolicy method.</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Inside the <em>AddBusinessCommonJwtPolicy</em> method you can add your JWT Policy like in My Thai Star application sample:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c#" data-lang="c#"> services.ConfigureJwtAddPolicy("MTSWaiterPolicy", "role", "waiter");</code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-notes-span-7"><a class="anchor" href="#true-span-class-navy-notes-span-7"></a><span class="navy">Notes</span></h4>
-
+<div class="ulist">
+<ul>
+<li>
+<p>The certificate will be used to generate the simetric key to encrypt the json web token.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="true-span-class-navy-oasp4net-infrastructure-jwt-mvc-span"><a class="anchor" href="#true-span-class-navy-oasp4net-infrastructure-jwt-mvc-span"></a><span class="navy">OASP4Net.Infrastructure.JWT.MVC</span></h3>
 <div class="sect3">
 <h4 id="true-span-class-navy-description-span-9"><a class="anchor" href="#true-span-class-navy-description-span-9"></a><span class="navy">Description</span></h4>
-<div class="paragraph">
-<p>OASP Extended controller to interact with JWT features.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>OASP Extended controller to interact with JWT features</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-configuration-span-9"><a class="anchor" href="#true-span-class-navy-configuration-span-9"></a><span class="navy">Configuration</span></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Extend your _ Microsoft.AspNetCore.Mvc.Controller_ class with <em>OASP4NetJWTController</em> class:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c#" data-lang="c#">public class LoginController : OASP4NetJWTController
+{
+    private readonly ILoginService _loginService;
 
+    public LoginController(ILoginService loginService,  SignInManager&lt;ApplicationUser&gt;  signInManager, UserManager&lt;ApplicationUser&gt; userManager, ILogger&lt;LoginController&gt; logger, IMapper mapper) : base(logger,mapper)
+    {
+        _loginService = loginService;
+    }
+
+    ....</code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-notes-span-8"><a class="anchor" href="#true-span-class-navy-notes-span-8"></a><span class="navy">Notes</span></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>In order to generate a JWT, you should implement the JWT generation on user login. For example, in My Thai Star is created as follows:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c#" data-lang="c#">public async Task&lt;IActionResult&gt; Login([FromBody]LoginDto loginDto)
+{
+    try
+    {
+        if (loginDto == null) return Ok();
+        var loged = await _loginService.LoginAsync(loginDto.UserName, loginDto.Password);
 
+        if (loged)
+        {
+            var user = await _loginService.GetUserByUserNameAsync(loginDto.UserName);
+
+            var encodedJwt = new JwtClientToken().CreateClientToken(_loginService.GetUserClaimsAsync(user));
+
+
+
+            Response.Headers.Add("Access-Control-Expose-Headers", "Authorization");
+
+            Response.Headers.Add("Authorization", $"{JwtBearerDefaults.AuthenticationScheme} {encodedJwt}");
+
+            return Ok(encodedJwt);
+        }
+        else
+        {
+            Response.Headers.Clear();
+            return StatusCode((int)HttpStatusCode.Unauthorized, "Login Error");
+        }
+
+    }
+    catch (Exception ex)
+    {
+        return StatusCode((int)HttpStatusCode.InternalServerError, $"{ex.Message} : {ex.InnerException}");
+    }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>In My Thai Star the JWT will contain the user information such id, roles&#8230;&#8203;</p>
+</li>
+<li>
+<p>Once you extend your controller with <em>OASP4NetJWTController</em> you will have available these methods to simplify user management:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c#" data-lang="c#">    public interface IOASP4NetJWTController
+    {
+        // Gets the current user
+        JwtSecurityToken GetCurrentUser();
+
+        // Gets an specific asigned claim of current user
+        Claim GetUserClaim(string claimName, JwtSecurityToken jwtUser = null);
+
+        // Gets all the asigned claims of current user
+        IEnumerable&lt;Claim&gt; GetUserClaims(JwtSecurityToken jwtUser = null);
+    }</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="true-span-class-navy-oasp4net-infrastructure-middleware-span"><a class="anchor" href="#true-span-class-navy-oasp4net-infrastructure-middleware-span"></a><span class="navy">OASP4Net.Infrastructure.Middleware</span></h3>
 <div class="sect3">
 <h4 id="true-span-class-navy-description-span-10"><a class="anchor" href="#true-span-class-navy-description-span-10"></a><span class="navy">Description</span></h4>
-<div class="paragraph">
-<p>OASP support for middleware classes.</p>
-</div>
-<div class="paragraph">
-<p>Support for automatic response headers:
-- AccessControlExposeHeader</p>
-</div>
 <div class="ulist">
 <ul>
+<li>
+<p>OASP4Net support for middleware classes.</p>
+</li>
+<li>
+<p>In ASP.NET Core, middleware classes can handle an HTTP request or response. Middleware can either:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Handle an incoming HTTP request by generating an HTTP response.</p>
+</li>
+<li>
+<p>Process an incoming HTTP request, modify it, and pass it on to another piece of middleware.</p>
+</li>
+<li>
+<p>Process an outgoing HTTP response, modify it, and pass it on to either another piece of middleware, or the ASP.NET Core web server.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>OASP4Net supports the following automatic response headers:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>AccessControlExposeHeader</p>
+</li>
 <li>
 <p>StrictTransportSecurityHeader</p>
 </li>
@@ -1107,6 +1368,53 @@ Use this expression builder to generate lambda expressions dynamically.</p>
 </li>
 </ul>
 </div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="true-span-class-navy-configuration-span-10"><a class="anchor" href="#true-span-class-navy-configuration-span-10"></a><span class="navy">Configuration</span></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Install package on your solution:</p>
+<div class="literalblock">
+<div class="content">
+<pre>PM&gt; OASP4Net.Infrastructure.Middleware</pre>
+</div>
+</div>
+</li>
+<li>
+<p>You can configure your Middleware configuration on <em>appsettings.{environment}.json</em>:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json" data-lang="json">"Middleware": {
+    "Headers": {
+      "AccessControlExposeHeader": "Authorization",
+      "StrictTransportSecurityHeader": "",
+      "XFrameOptionsHeader": "DENY",
+      "XssProtectionHeader": "1;mode=block",
+      "XContentTypeOptionsHeader": "nosniff",
+      "ContentSecurityPolicyHeader": "",
+      "PermittedCrossDomainPoliciesHeader": "",
+      "ReferrerPolicyHeader": ""
+    }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On the above sample, the server aplication will add to response header the AccessControlExposeHeader, XFrameOptionsHeader, XssProtectionHeader and XContentTypeOptionsHeader headers.</p>
+</li>
+<li>
+<p>If the header response type does not have a value, it will not be added to the response headers.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1114,67 +1422,292 @@ Use this expression builder to generate lambda expressions dynamically.</p>
 <div class="sect3">
 <h4 id="true-span-class-navy-description-span-11"><a class="anchor" href="#true-span-class-navy-description-span-11"></a><span class="navy">Description</span></h4>
 <div class="paragraph">
-<p>Common classes to extend controller functionality on API. Also provides support for paged results in OASP applications.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="true-span-class-navy-configuration-span-10"><a class="anchor" href="#true-span-class-navy-configuration-span-10"></a><span class="navy">Configuration</span></h4>
-
-</div>
-<div class="sect3">
-<h4 id="true-span-class-navy-notes-span-9"><a class="anchor" href="#true-span-class-navy-notes-span-9"></a><span class="navy">Notes</span></h4>
-
-</div>
-</div>
-<div class="sect2">
-<h3 id="true-span-class-navy-oasp4net-infrastructure-smtp-span"><a class="anchor" href="#true-span-class-navy-oasp4net-infrastructure-smtp-span"></a><span class="navy">OASP4Net.Infrastructure.SMTP</span></h3>
-<div class="sect3">
-<h4 id="true-span-class-navy-description-span-12"><a class="anchor" href="#true-span-class-navy-description-span-12"></a><span class="navy">Description</span></h4>
-<div class="paragraph">
-<p>SMTP Client for sending emails using Mailkit and Mimekit.</p>
+<p>Common classes to extend controller functionality on API. Also provides support for paged results in OASP applications and autommaper injected class.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-configuration-span-11"><a class="anchor" href="#true-span-class-navy-configuration-span-11"></a><span class="navy">Configuration</span></h4>
-
+<div class="ulist">
+<ul>
+<li>
+<p>Install package on your solution:</p>
+<div class="literalblock">
+<div class="content">
+<pre>PM&gt; OASP4Net.Infrastructure.MVC</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect3">
-<h4 id="true-span-class-navy-notes-span-10"><a class="anchor" href="#true-span-class-navy-notes-span-10"></a><span class="navy">Notes</span></h4>
+<h4 id="true-span-class-navy-notes-span-9"><a class="anchor" href="#true-span-class-navy-notes-span-9"></a><span class="navy">Notes</span></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>The generic class <em>ResultObjectDto&lt;T&gt;</em> provides a typed result object with pagination.</p>
+</li>
+<li>
+<p>The extended class provides the following methods:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c#" data-lang="c#">        ResultObjectDto&lt;T&gt; GenerateResultDto&lt;T&gt;(int? page, int? size, int? total);
+        ResultObjectDto&lt;T&gt; GenerateResultDto&lt;T&gt;(List&lt;T&gt; result, int? page = null, int? size = null);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>GenerateResultDto</em> provides typed <em>ResultObjectDto</em> object or a list of typed <em>ResultObjectDto</em> object. The aim of this methods is to provide a clean management for result objects and not repeating code through the different controller classes.</p>
+</li>
+<li>
+<p>The following sample from <em>My Thai Star</em> shows how to use it:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c#" data-lang="c#">public async Task&lt;IActionResult&gt; Search([FromBody] FilterDtoSearchObject filterDto)
+{
+    if (filterDto == null) filterDto = new FilterDtoSearchObject();
 
+    try
+    {
+        var dishList = await _dishService.GetDishListFromFilter(false, filterDto.GetMaxPrice(), filterDto.GetMinLikes(), filterDto.GetSearchBy(),filterDto.GetCategories(), -1);
+
+
+        return new OkObjectResult(GenerateResultDto(dishList).ToJson());
+    }
+    catch (Exception ex)
+    {
+        return StatusCode((int)HttpStatusCode.InternalServerError, $"{ex.Message} : {ex.InnerException}");
+    }
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="true-span-class-navy-oasp4net-infrastructure-swagger-span"><a class="anchor" href="#true-span-class-navy-oasp4net-infrastructure-swagger-span"></a><span class="navy">OASP4Net.Infrastructure.Swagger</span></h3>
 <div class="sect3">
-<h4 id="true-span-class-navy-description-span-13"><a class="anchor" href="#true-span-class-navy-description-span-13"></a><span class="navy">Description</span></h4>
-<div class="paragraph">
+<h4 id="true-span-class-navy-description-span-12"><a class="anchor" href="#true-span-class-navy-description-span-12"></a><span class="navy">Description</span></h4>
+<div class="ulist">
+<ul>
+<li>
 <p>OASP Swagger abstraction to provide full externalized easy configuration.</p>
+</li>
+<li>
+<p>Swagger offers the easiest to use tools to take full advantage of all the capabilities of the OpenAPI Specification (OAS).</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-configuration-span-12"><a class="anchor" href="#true-span-class-navy-configuration-span-12"></a><span class="navy">Configuration</span></h4>
-
+<div class="ulist">
+<ul>
+<li>
+<p>Install package on your solution:</p>
+<div class="literalblock">
+<div class="content">
+<pre>PM&gt; OASP4Net.Infrastructure.Swagger</pre>
+</div>
+</div>
+</li>
+<li>
+<p>You can configure your Swagger configuration on <em>appsettings.{environment}.json</em>:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json" data-lang="json">"Swagger": {
+    "Version": "v1",
+    "Title": "OASP4Net API",
+    "Description": "A simple ASP.NET Core Web API capable project",
+    "Terms": "OASP",
+    "Contact": {
+      "Name": "OASP4Net",
+      "Email": "",
+      "Url": ""
+    },
+    "License": {
+      "Name": "OASP4Net",
+      "Url": ""
+    },
+    "Endpoint": {
+      "Name": "V1 Docs",
+      "Url": "/swagger/v1/swagger.json"
+    }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add this line of code:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c#" data-lang="c#">services.ConfigureSwaggerService();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Startup.cs/ConfigureServices(IServiceCollection services)</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Also add this line of code:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c#" data-lang="c#">app.ConfigureSwaggerApplication();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Startup.cs/Configure(IApplicationBuilder app, IHostingEnvironment env)</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ensure your API actions and non-route parameters are decorated with explicit "Http" and "From" bindings.</p>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect3">
-<h4 id="true-span-class-navy-notes-span-11"><a class="anchor" href="#true-span-class-navy-notes-span-11"></a><span class="navy">Notes</span></h4>
+<h4 id="true-span-class-navy-notes-span-10"><a class="anchor" href="#true-span-class-navy-notes-span-10"></a><span class="navy">Notes</span></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>To access to swagger UI launch your API project and type in your html browser the url <em><a href="http://localhost:yourPort/swagger" class="bare">http://localhost:yourPort/swagger</a></em>.</p>
+</li>
+<li>
+<p>In order to generate the documentation annotate your actions with summary, remarks and response tags:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/// &lt;summary&gt;
+/// Method to make a reservation with potentiel guests. The method returns the reservation token with the format: {(CB_|GB_)}{now.Year}{now.Month:00}{now.Day:00}{_}{MD5({Host/Guest-email}{now.Year}{now.Month:00}{now.Day:00}{now.Hour:00}{now.Minute:00}{now.Second:00})}
+/// &lt;/summary&gt;
+/// &lt;param name="bookingDto"&gt;&lt;/param&gt;
+/// &lt;response code="201"&gt;Ok.&lt;/response&gt;
+/// &lt;response code="400"&gt;Bad request. Parser data error.&lt;/response&gt;
+/// &lt;response code="401"&gt;Unathorized. Autentication fail&lt;/response&gt;
+/// &lt;response code="403"&gt;Forbidden. Authorization error.&lt;/response&gt;
+/// &lt;response code="500"&gt;Internal Server Error. The search process ended with error.&lt;/response&gt;
+[HttpPost]
+[HttpOptions]
+[Route("/mythaistar/services/rest/bookingmanagement/v1/booking")]
+[AllowAnonymous]
+[EnableCors("CorsPolicy")]
+public async Task&lt;IActionResult&gt; BookingBooking([FromBody]BookingDto bookingDto)
+{
+    try
+    {
 
+    ...</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ensure that your project has the <em>generate XML documentation file</em> check active on buid menu:</p>
+</li>
+</ul>
+</div>
+<div id="img-t-architecture" class="imageblock">
+<div class="content">
+<a class="image" href="images/swaggerDocXMLCheck.png"><img src="images/swaggerDocXMLCheck.png" alt="Generate documentation XML check" width="*"></a>
+</div>
+<div class="title">Figure 2. Swagger documentation</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ensure that your XML files has the attribute copy always to true:</p>
+</li>
+</ul>
+</div>
+<div id="img-t-architecture" class="imageblock">
+<div class="content">
+<a class="image" href="images/swaggerDoc.png"><img src="images/swaggerDoc.png" alt="Generate documentation XML check" width="*"></a>
+</div>
+<div class="title">Figure 3. Swagger documentation</div>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="true-span-class-navy-oasp4net-infrastructure-test-span"><a class="anchor" href="#true-span-class-navy-oasp4net-infrastructure-test-span"></a><span class="navy">OASP4Net.Infrastructure.Test</span></h3>
 <div class="sect3">
-<h4 id="true-span-class-navy-description-span-14"><a class="anchor" href="#true-span-class-navy-description-span-14"></a><span class="navy">Description</span></h4>
+<h4 id="true-span-class-navy-description-span-13"><a class="anchor" href="#true-span-class-navy-description-span-13"></a><span class="navy">Description</span></h4>
 <div class="paragraph">
 <p>OASP Base classes to create unit tests and integration tests with Moq and xUnit.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="true-span-class-navy-configuration-span-13"><a class="anchor" href="#true-span-class-navy-configuration-span-13"></a><span class="navy">Configuration</span></h4>
-
+<div class="ulist">
+<ul>
+<li>
+<p>Load the template:
+&gt; dotnet new -i OASP4Net.Test.Template
+&gt; dotnet new OASP4NetTest</p>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect3">
-<h4 id="true-span-class-navy-notes-span-12"><a class="anchor" href="#true-span-class-navy-notes-span-12"></a><span class="navy">Notes</span></h4>
-
+<h4 id="true-span-class-navy-notes-span-11"><a class="anchor" href="#true-span-class-navy-notes-span-11"></a><span class="navy">Notes</span></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>At this point you can find this classes:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>BaseManagementTest</p>
+</li>
+<li>
+<p>DatabaseManagementTest&lt;T&gt; (Where T is a <em>OASP4NetBaseContext</em> class)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>For unit testing, inherit a class from <em>BaseManagementTest</em>.</p>
+</li>
+<li>
+<p>For integration tests, inherit a class from <em>DatabaseManagementTest</em>.</p>
+</li>
+<li>
+<p>The recomended databases in integration test are <em>in memory database</em> or <em>SQlite database</em>.</p>
+</li>
+<li>
+<p>Please check <em>My thai Star</em> test project.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <h1 id="true-span-class-navy-required-software-span" class="sect0"><a class="anchor" href="#true-span-class-navy-required-software-span"></a><span class="navy">Required software</span></h1>
@@ -1193,7 +1726,7 @@ Use this expression builder to generate lambda expressions dynamically.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-07-10 10:24:44 RDT
+Last updated 2018-07-11 13:45:48 RDT
 </div>
 </div>
 <link rel="stylesheet" href="css/github.min.css">
